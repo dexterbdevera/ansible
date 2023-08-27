@@ -13,4 +13,3 @@
 - include: 07_add_all_available_disks_to_cluster.yml
 - include: 08_install_qradar.yml
 - include: reboot.yml
-- inc
