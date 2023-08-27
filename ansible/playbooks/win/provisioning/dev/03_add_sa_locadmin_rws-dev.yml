@@ -1,0 +1,8 @@
+---
+- name: Add DEVELOPMENT\SA team to local admin group
+  hosts: provision-dev
+  tasks:
+  - name: Executing Command
+    win_command: powershell -command "& { ([adsi]'WinNT://./Administrators,group').Add('WinNT://DEVELOPMENT/IT SA Team'); }"
+    args:
+      executable: cmd

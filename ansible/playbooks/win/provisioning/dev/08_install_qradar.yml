@@ -1,0 +1,18 @@
+#Tested working script
+--- 
+- name: Install Qradar 
+  hosts: provision-dev
+  gather_facts: no
+  become_method: runas
+  tasks:
+  - name: Restart Windows
+    win_reboot:
+
+  - name: Copying a single file
+    ansible.builtin.copy:
+        src: /etc/ansible/files/qradar/wincollect.exe
+        dest: D:\
+
+  - name: Executing Command
+    win_shell: Start-Process -Wait -FilePath D:\wincollect.exe -ArgumentList '/s','/v','/qn','INSTALLDIR=\"D:\Program Files\IBM\WinCollect\"','AUTHTOKEN=reeresrserseresr7','FULLCONSOLEADDRESS=10.12.34.56:8413','HOSTNAME=%COMPUTERNAME%','LOG_SOURCE_AUTO_CREATION_ENABLED=False'
+    become: yes

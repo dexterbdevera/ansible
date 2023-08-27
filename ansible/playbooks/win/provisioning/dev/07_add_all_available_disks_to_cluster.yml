@@ -1,0 +1,10 @@
+# Tested and working script
+--- 
+- name: Add all available disks to Cluster
+  hosts: cluster-devx
+  become: yes
+  become_method: runas
+  tasks:
+    - name: Add all available disks to Cluster
+      win_shell: Get-ClusterAvailableDisk | Add-ClusterDisk
+

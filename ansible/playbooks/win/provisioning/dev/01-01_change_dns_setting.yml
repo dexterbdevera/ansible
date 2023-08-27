@@ -1,0 +1,16 @@
+# Tested and working script
+---
+- name: Set IPv4 DNS servers on the adapter named Ethernet0
+  hosts: provision-dev
+  tasks:
+  - name: Executing Command
+    win_command: netsh interface ipv4 set dns name=Ethernet0 static 10.12.34.56
+    args:
+      executable: cmd
+- name: Add IPv4 Secondary DNS servers on the adapter named Ethernet0
+  hosts: provision-dev
+  tasks:
+  - name: Executing Command
+    win_command: netsh interface ipv4 add dnsservers "Ethernet0" 10.12.34.57 index=2
+    args:
+      executable: cmd

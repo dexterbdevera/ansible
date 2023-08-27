@@ -1,0 +1,15 @@
+---
+- include: 01-01_change_dns_setting.yml
+- include: 01-02_join_domain.yml
+- include: 03_add_dba_locadmin_rws-dev.yml
+- include: 03_add_sa_locadmin_rws-dev.yml
+- include: 04_remove_domain_admins_locadmin.yml
+- include: 04_rename_administrator_appadmin.yml
+- include: 04_rename_administrator_dbsadmin.yml
+- include: 04_rename_administrator_webadmin.yml
+- include: 05-01_install_failovercluster_requirements-dev.yml
+- include: 05-02_create_failovercluster_1c-dev.yml
+- include: 06_configure_luns.yml
+- include: 07_add_all_available_disks_to_cluster.yml
+- include: 08_install_qradar.yml
+- include: reboot.yml

@@ -1,0 +1,11 @@
+# Tested and working script
+--- 
+- name: Configure Cluster Name and IP
+  hosts: cluster-devx
+  gather_facts: no
+  become_method: runas
+  tasks:
+  - name: Configuring Cluster Name and IP
+    win_shell: New-Cluster –Name DBSERVER1C –Node DBSERVER1.DEVELOPMENT.COM, DBSERVER2.DEVELOPMENT.COM –StaticAddress 10.45.192.8
+    become: yes
+    become_user: root

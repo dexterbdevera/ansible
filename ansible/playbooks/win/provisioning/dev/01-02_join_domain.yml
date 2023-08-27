@@ -1,0 +1,13 @@
+---
+- name: "Join Domain/Restart"
+  hosts: provision-dev
+  tasks:
+    - name: Join DEV Domain
+      win_domain_membership:
+        dns_domain_name: development.com
+        domain_admin_user: server1@development.com
+        domain_admin_password: #your password here
+        state: domain
+      register: domain_state
+    - win_reboot:
+      when: domain_state.reboot_required

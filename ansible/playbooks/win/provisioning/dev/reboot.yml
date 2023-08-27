@@ -1,0 +1,7 @@
+# Tested working script 
+---
+- name: Server Provisioning Playbook
+  hosts: provision-dev
+  tasks:
+    - name: Restart Windows
+      win_reboot:

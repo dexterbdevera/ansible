@@ -1,0 +1,8 @@
+---
+- name: Rename Administrator to WEBadmin
+  hosts: provision-dev
+  tasks:
+  - name: Executing Command
+    win_command: wmic useraccount where name='Administrator' rename WEBadmin
+    args:
+      executable: cmd

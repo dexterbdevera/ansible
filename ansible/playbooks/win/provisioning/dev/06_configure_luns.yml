@@ -1,0 +1,23 @@
+# Tested and working script
+--- 
+- name: Configure LUN and Add available disks to Cluster
+  hosts: provision-dev1
+  become: yes
+  become_method: runas
+  tasks:
+    #- name: Initialize Disks & set GPT partition style 
+    #  win_shell: Get-Disk -FriendlyName "EMC Invista" | Where-Object IsOffline -Eq $True | Initialize-Disk –PartitionStyle GPT
+
+    - name: Online Disks
+      win_shell: Get-Disk -FriendlyName "HUAWEI*" | Where-Object IsOffline -Eq $True | Set-Disk -IsOffline $False 
+
+    - name: Remove Read-Only Disk permission
+      win_shell: Get-Disk -FriendlyName "HUAWEI*" | Set-Disk -IsReadonly $False
+
+    - name: Format Volumes with NTFS and Allocation Unit Size=64k
+      win_shell: Get-Disk -FriendlyName "HUAWEI*" | new-partition -usemaximumsize | format-volume -filesystem NTFS -allocationUnitSize 65536
+
+    #- name: Offline Disks
+    #  win_shell: Get-Disk -FriendlyName "EMC Invista" | Where-Object IsOffline -Eq $False | Set-Disk -IsOffline $True 
+
+

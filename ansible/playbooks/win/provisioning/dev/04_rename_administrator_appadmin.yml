@@ -1,0 +1,8 @@
+---
+- name: Rename Administrator to APPadmin
+  hosts: provision-dev
+  tasks:
+  - name: Executing Command
+    win_command: wmic useraccount where name='Administrator' rename APPadmin
+    args:
+      executable: cmd

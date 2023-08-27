@@ -1,0 +1,24 @@
+# Tested and working script 26/11
+---
+- name: Install Cluster Features
+  hosts: cluster-dev
+  tasks:
+  - name: Restart Windows
+    win_reboot:
+
+  - name: Install Failover Clustering
+    win_command: powershell -command Install-WindowsFeature -Name Failover-Clustering -IncludeManagementTools
+    args:
+      executable: cmd
+
+  - name: Install RSAT ClusteringMGMT
+    win_command: powershell -command Install-WindowsFeature RSAT-Clustering-MGMT
+    args:
+      executable: cmd
+      
+  - name: Install RSAT RSAT-Clustering-CmdInterface
+    win_command: powershell -command Install-WindowsFeature RSAT-Clustering-CmdInterface
+    args:
+      executable: cmd
+
+      

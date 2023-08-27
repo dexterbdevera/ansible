@@ -1,0 +1,8 @@
+---
+- name: Remove Domain Admins from local admin group
+  hosts: provision-dev
+  tasks:
+  - name: Executing Command
+    win_command: net localgroup Administrators "Domain Admins" /delete
+    args:
+      executable: cmd
