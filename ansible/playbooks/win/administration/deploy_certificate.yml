@@ -1,0 +1,23 @@
+---
+- name: Importing certificates to hosts
+  hosts: demo-win
+  tasks:
+  - name: Copying certificate to hosts
+    ansible.builtin.copy:
+      src: /etc/ansible/files/certificate/wildcard.pfx
+      dest: D:\
+
+  - name: Import pfx certificate 
+    win_certificate_store:
+      path: D:\wildcard.pfx
+      state: present
+      password: #passwort
+      key_exportable: no
+    become: yes
+    become_method: runas
+
+  - name: Delete wildcard.pfx
+    win_file:
+      path: D:\wildcard.pfx
+      state: absent
+

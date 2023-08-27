@@ -1,0 +1,9 @@
+---
+- name: Get local Administrators group members
+  hosts: demo-win
+  tasks:
+  - name: get date
+    win_shell: date >> C:\temp\output.txt
+
+  - name: get local group member 
+    win_shell: Get-LocalGroupMember -Group "Administrators" >> C:\temp\output.txt

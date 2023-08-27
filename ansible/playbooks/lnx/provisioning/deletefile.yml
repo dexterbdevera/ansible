@@ -1,0 +1,10 @@
+---
+- name: Delete file using RAW module
+  hosts: lab
+  
+  tasks:
+  - name: delete file
+    raw: rm -f /tmp/join-domain.sh
+
+  - name: delete file
+    raw: rm -f /tmp/server-setup.sh

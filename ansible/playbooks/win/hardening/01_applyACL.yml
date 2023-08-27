@@ -1,0 +1,73 @@
+---
+- name: Apply ACL
+  hosts: demo-win
+  gather_facts: no
+  become_method: runas
+  become: yes
+  tasks:
+  - name: Set the owner of C:\ directory
+    win_owner:
+      path: C:\
+      user: 'Administrators'
+      recurse: no
+
+  - name: Change owner to TrustedInstaller
+    win_owner:
+      path: C:\
+      user: 'NT SERVICE\Trustedinstaller'
+      recurse: no
+
+  - name: Give ownership to adminstrator group for Recycle Bin
+    win_shell: takeown /F "{{ item }}" /A /R /D "Y"
+    args:
+      executable: cmd
+    with_items:
+    - C:\$Recycle.Bin
+    - D:\$Recycle.Bin
+
+  - name: Registry updates
+    win_shell: reg add "{{ item }}"
+    args:
+      executable: cmd
+    with_items:
+    - HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters /v AutoShareServer /t REG_DWORD /d 0 /f
+    - HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa /v restrictanonymous /t REG_DWORD /d 2 /f
+    - HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters /v SynAttackProtect /t REG_DWORD /d 2 /f
+    - HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters /v EnableICMPRedirect /t REG_DWORD /d 0 /f
+    - HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters /v IPEnableRouter /t REG_DWORD /d 0 /f
+    - HKLM\SYSTEM\CurrentControlSet\Control\CrashControl /v CrashDumpEnabled /t REG_DWORD /d 0 /f
+
+  - name: Grant read & write access to Authenticated Users
+    win_acl:
+      user: 'Authenticated Users'
+      path: "{{ item }}"
+      type: allow
+      rights: ExecuteFile,Write
+    with_items:
+    - C:\
+    - D:\
+
+  - name: Remove Everyone Group in C Drives
+    win_command: icacls C:\ /remove Everyone
+    args:
+      executable: cmd
+
+  - name: Remove Everyone Group in D Drives
+    win_command: icacls D:\ /remove Everyone
+    args:
+      executable: cmd
+
+  - name: Remove Users Group in C Drives
+    win_command: icacls C:\ /remove Users
+    args:
+      executable: cmd
+
+  - name: Remove Users Group in D Drives
+    win_command: icacls D:\ /remove Users
+    args:
+      executable: cmd
+
+  - name: Group Policy Update
+    win_shell: gpupdate /force
+    args:
+      executable: cmd

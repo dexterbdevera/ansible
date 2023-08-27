@@ -1,0 +1,14 @@
+---
+- name: Telnet Port 7005
+  hosts: demo-win
+  gather_facts: no
+  tasks:
+  - name: Executing Command
+    win_command: telnet "{{ item }}" 7905
+    args:
+      executable: cmd
+    with_items:
+    - SERVER1.PRODUCTION.COM
+    - SERVER2.PRODUCTION.COM
+    - SERVER1.DEVELOPMENT.COM
+    - SERVER2.DEVELOPMENT.COM

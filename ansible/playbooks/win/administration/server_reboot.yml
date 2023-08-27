@@ -1,0 +1,7 @@
+# Tested working script 
+---
+- name: Server Reboot
+  hosts: demo-win
+  tasks:
+    - name: Restart Windows
+      win_reboot:

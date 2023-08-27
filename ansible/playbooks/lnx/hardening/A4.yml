@@ -1,0 +1,10 @@
+---
+- name: D4 | Ensure permissions on /etc/passwd are configured | 6.1.2
+  hosts: linux
+
+  tasks:
+  - name: Run the following command and verify Uid and Gid are both 0/root and Access is 644
+    ansible.builtin.raw: grep "^root:" /etc/passwd | cut -f4 -d 
+    register: audit
+  - debug:
+      var=audit.stdout_lines

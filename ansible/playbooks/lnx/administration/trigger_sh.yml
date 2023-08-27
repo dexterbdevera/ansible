@@ -1,0 +1,11 @@
+---
+- name: runbook to trigger sh using RAW module
+  hosts: linux
+  become: true
+  
+  tasks:
+  - name: Trigger sample audit script
+    shell: /opt/audit/audit.sh
+
+  - name: Trigger copy2NAS script
+    shell: /opt/audit/copyfile2NAS.sh

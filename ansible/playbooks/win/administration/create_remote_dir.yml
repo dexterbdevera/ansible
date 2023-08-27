@@ -1,0 +1,8 @@
+---
+- name: Create Remote Dir
+  hosts: demo-win
+  tasks:
+  - name: Executing Command
+    win_file:
+        path: D:\temp\demo_test
+        state: directory

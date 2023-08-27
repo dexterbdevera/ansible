@@ -1,0 +1,17 @@
+---
+- name: Syslog Onboarding 
+  hosts: new_alm
+
+  tasks:
+  - name: Configure the rsyslog.conf with Syslog IP and Port
+    ansible.builtin.shell: "echo -e '*.* @@10.12.34.56:514' >> /etc/rsyslog.conf"
+  
+  - name: Restarting the rsyslog service
+    ansible.builtin.service:
+        name: rsyslog
+        state: restarted
+        enabled: true
+
+  - name: Verification if Syslog is configured
+    ansible.builtin.shell: "grep 10.12.34.56 /etc/rsyslog.conf"
+

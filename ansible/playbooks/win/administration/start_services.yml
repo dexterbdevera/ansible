@@ -1,0 +1,16 @@
+---
+- name: Starting Services
+  hosts: demo-win
+  become: yes
+  become_method: runas
+  gather_facts: no
+  tasks:
+  - name: Start service IIS, if stopped
+    win_service:
+      name: 'IIS'
+      state: started
+
+  - name: Start service MSSQLSERVER, if stopped
+    win_service:
+      name: 'MSSQLSERVER'
+      state: started

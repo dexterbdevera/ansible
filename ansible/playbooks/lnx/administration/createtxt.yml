@@ -1,0 +1,13 @@
+---
+- name: Playbook to create a new text file using RAW module
+  hosts: lab
+
+  tasks:
+  - name: delete newfile.txt
+    raw: rm -f /tmp/newfile.txt
+
+  - name: create newfile.txt
+    raw: touch /tmp/newfile.txt
+
+  - name: get ifconfig details into txt
+    raw: ifconfig > /tmp/newfile.txt

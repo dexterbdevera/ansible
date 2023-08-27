@@ -1,0 +1,18 @@
+---
+- name: ACL Permission
+  hosts: demo-win
+  gather_facts: no
+  become_method: runas
+  become: yes
+  tasks:
+  - name: Check if 'Everyone' group is exisiting
+    win_shell: (Get-Acl -Path C:\).Access.IdentityReference
+    register: acl_permission
+  - debug:
+      var: acl_permission
+
+    
+
+
+
+

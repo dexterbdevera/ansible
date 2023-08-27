@@ -1,0 +1,8 @@
+---
+- name: Delete file folder
+  hosts: demo-win
+  tasks:
+  - name: Remove the folder, if present
+    win_file:
+      path: D:\temp\demo_test
+      state: absent

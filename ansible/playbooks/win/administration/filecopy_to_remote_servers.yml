@@ -1,0 +1,14 @@
+# Tested and working script
+---
+- name: Copy file to remote server
+  hosts: demo-win
+  tasks:
+  - name: Copying the whole folder contents
+    ansible.builtin.copy:
+        src: /etc/ansible/files/apm/hm/
+        dest: D:\
+
+  - name: Copying a single file
+    ansible.builtin.copy:
+        src: /etc/ansible/files/apm/hm/setup.exe
+        dest: D:\

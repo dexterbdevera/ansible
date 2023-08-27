@@ -1,0 +1,9 @@
+---
+- name: fetch file from machine 1 to local 
+  hosts: demo-win
+  tasks:
+  - name: fetch file from machine 1 to local
+    ansible.builtin.fetch: 
+        src: /temp/output.txt 
+        dest: /home/ansible
+        remote_src: true

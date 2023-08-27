@@ -1,0 +1,10 @@
+---
+- name: Logging and Auditing 
+  hosts: linux
+
+  tasks:
+  - name: Check whether auditd is installed
+    ansible.builtin.command: rpm -q audit-libs 
+    register: audit
+  - debug:
+      var: audit

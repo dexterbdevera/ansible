@@ -1,0 +1,16 @@
+---
+- name: Local Security Check
+  hosts: demo-win
+  gather_facts: no
+  become_method: runas
+  become: yes
+  tasks:
+  - name: 
+    win_command: net accounts
+    args:
+      executable: cmd
+    register: min_pass_length
+  - debug:
+      var: min_pass_length
+
+

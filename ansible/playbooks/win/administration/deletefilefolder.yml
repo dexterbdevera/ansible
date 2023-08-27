@@ -1,0 +1,13 @@
+---
+- name: Delete file folder
+  hosts: demo-win
+  tasks:
+  - name: Remove a file, if present
+    ansible.windows.win_file:
+      path: D:\temp\test.conf
+      state: absent
+
+  - name: Remove directory structure
+    ansible.windows.win_file:
+      path: D:\temp\test
+      state: absent

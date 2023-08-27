@@ -1,0 +1,10 @@
+---
+- name: Install 'httpd' package 
+  hosts: lab
+  become: True
+  tasks:
+  - name: Install 'tree' package
+    yum:
+      name: tree
+      state: present
+      update_cache: True

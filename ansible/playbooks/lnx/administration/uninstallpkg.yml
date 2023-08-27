@@ -1,0 +1,10 @@
+---
+- name: Uninstall 'tree' package 
+  hosts: lab
+  become: True
+  tasks:
+  - name: Uninstall 'tree' package
+    yum:
+      name: tree
+      state: absent
+      update_cache: True

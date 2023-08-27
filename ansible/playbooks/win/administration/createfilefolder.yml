@@ -1,0 +1,15 @@
+---
+- name: Create file folder
+  hosts: demo-win
+  
+  tasks:
+  - name: Create directory structure
+    ansible.windows.win_file:
+      path: D:\temp\yaml
+      state: directory
+  
+  - name: Touch a file (creates if not present, updates modification time if present)
+    ansible.windows.win_file:
+      path: D:\temp\test.conf
+      state: touch
+

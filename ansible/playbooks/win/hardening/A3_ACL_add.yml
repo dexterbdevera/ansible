@@ -1,0 +1,20 @@
+---
+- name: ACL Permission
+  hosts: demo-win
+  gather_facts: no
+  become_method: runas
+  become: yes
+  tasks:
+  - name: Authenticated Users are added with Modify & Read/Execute permission
+    win_acl:
+      user: 'Authenticated Users'
+      path: "{{ item }}"
+      type: allow
+      rights: Read,Modify,ExecuteFile
+    with_items:
+    - C:\
+    
+
+
+
+

@@ -1,0 +1,20 @@
+---
+- name: Create Remote Dir
+  hosts: demo-win
+  tasks:
+  - name: Executing Command
+    win_file:
+        path: D:\temp\demo_test
+        state: directory
+    notify: Send mail
+
+  handlers: 
+  - name: Send mail
+    mail: 
+      host: smtp.production.com
+      port: 25
+      sender: ansible@production.com
+      to: everyone@production.com
+      subject: Report for {{ ansible_hostname }}
+      body: 'Server {{ ansible_hostname }} has been updated'
+    delegate_to: localhost

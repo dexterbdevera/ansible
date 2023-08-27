@@ -1,0 +1,14 @@
+---
+- name: Registry check 
+  hosts: demo-win
+  gather_facts: no
+  become_method: runas
+  become: yes
+  tasks:
+  - name: Obtain information about a registry key property
+    win_reg_stat:
+      path: HKLM:\System\CurrentControlSet\Services\LanmanServer\Parameters
+      name: AutoShareServer
+    register: auto_share_server
+  - debug:
+      var: auto_share_server
